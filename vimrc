@@ -14,9 +14,13 @@ let g:NERDTreeWinPos = "right"
 let NERDTreeShowHidden=0
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 let g:NERDTreeWinSize=35
-map <leader>nn :NERDTreeToggle<cr>
-map <leader>nb :NERDTreeFromBookmark<Space>
-map <leader>nf :NERDTreeFind<cr>
+
+" These mapping cause buffer switching, <leader>n, to have a small noticable
+" pause while vim waits to see if I press a second letter.  I like fast buffer
+" switching more that this stuff so I'm commenting it out for now.
+"map <leader>nn :NERDTreeToggle<cr>
+"map <leader>nb :NERDTreeFromBookmark<Space>
+"map <leader>nf :NERDTreeFind<cr>
 " remap ctrl-v to nerdtree  (default mapping is visual-block)
 map <C-v> :NERDTreeToggle<CR>
 " close vim if the only window left open is a NERDTree
@@ -94,12 +98,11 @@ if $COLORTERM == 'gnome-terminal'
     set t_Co=256
 endif
 
-try
-    colorscheme desert
-catch
-endtry
-
+" enable 24bit color support in vim. used for colorschemes
+set termguicolors
 set background=dark
+
+
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -108,6 +111,10 @@ if has("gui_running")
     set t_Co=256
     set guitablabel=%M\ %t
 endif
+
+" set vim-colorscheme 
+packadd! onedark.vim
+colorscheme onedark
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -196,4 +203,11 @@ set number
 "  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
 "  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 "augroup END
+
+" set vim-airline theme colors
+let g:airline_theme='onedark'
+" turn on buffer display at top of window
+let g:airline#extensions#tabline#enabled = 1
+
+
 
