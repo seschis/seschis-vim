@@ -11,3 +11,5 @@ Ex.
 
 Extra information about managing vim-8 native plugins without a plugin manager:
 https://gist.github.com/manasthakur/d4dc9a610884c60d944a4dd97f0b3560
+
+More reading https://shapeshed.com/vim-packages/
