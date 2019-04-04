@@ -1,6 +1,32 @@
 syntax on
 filetype plugin indent on
 
+" set leader from default (\) to ;
+let mapleader = ";"
+
+
+" ********* Config Plugins **********
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Nerd Tree
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:NERDTreeWinPos = "right"
+let NERDTreeShowHidden=0
+let NERDTreeIgnore = ['\.pyc$', '__pycache__']
+let g:NERDTreeWinSize=35
+map <leader>nn :NERDTreeToggle<cr>
+map <leader>nb :NERDTreeFromBookmark<Space>
+map <leader>nf :NERDTreeFind<cr>
+" remap ctrl-v to nerdtree  (default mapping is visual-block)
+map <C-v> :NERDTreeToggle<CR>
+" close vim if the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" ********* End NERDTree customizations **********
+
+
+" ************ general vim UX ***********************
+
+
 " Set to auto read when a file is changed from the outside
 set autoread
 
@@ -51,10 +77,11 @@ if has("gui_macvim")
     autocmd GUIEnter * set vb t_vb=
 endif
 
-
 " Add a bit extra margin to the left
 set foldcolumn=1
 
+" basic column len before wrapping
+set textwidth=79
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -111,13 +138,18 @@ set smarttab
 set shiftwidth=4
 set tabstop=4
 
-" Linebreak on 500 characters
+
+" Linebreak at <textwidth>
 set lbr
-set tw=500
 
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
+
+" Have Vim jump to the last position when reopening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
 
 
 """"""""""""""""""""""""""""""
@@ -129,9 +161,6 @@ vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
 "set runtimepath+=~/.vim_runtime
-
-" set leader from default (\) to ;
-
 "source ~/.vim_runtime/vimrcs/basic.vim
 "source ~/.vim_runtime/vimrcs/filetypes.vim
 "source ~/.vim_runtime/vimrcs/plugins_config.vim
@@ -142,14 +171,7 @@ try
 catch
 endtry
 
-" ********* Start NERDTree customizations **********
-" remap ctrl-v to nerdtree  (default mapping is visual-block)
-map <C-v> :NERDTreeToggle<CR>
-" close vim if the only window left open is a NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" ********* End NERDTree customizations **********
 
-let mapleader = ";"
 " make buffer cycling easier
 map gn :bn<cr>
 map gp :bp<cr>
@@ -158,13 +180,6 @@ map gd :bd<cr>
 nnoremap <leader>n :bn<cr>
 nnoremap <leader>p :bp<cr>
 nnoremap <leader>d :bd<cr>
-
-" add git branch to statusline
-"%{FugitiveStatusline()} to 'statusline'"
-" set statusline=%f  " path to file
-" set statusline+=%{FugitiveStatusline()}   "git info
-" file percentage
-" linenum:colnum
 
 " show column limit; number based off of textwidth setting.
 " If textwidth is not set, the warning line is at col 256
@@ -182,5 +197,3 @@ set number
 "  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 "augroup END
 
-" is this ever not the case?
-set textwidth=79
