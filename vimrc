@@ -188,6 +188,10 @@ nnoremap <leader>n :bn<cr>
 nnoremap <leader>p :bp<cr>
 nnoremap <leader>d :bd<cr>
 
+" vim-go shortcuts
+nnoremap <leader>t :GoCoverageToggle
+nnoremap <leader>f :GoTestFunc
+
 " show column limit; number based off of textwidth setting.
 " If textwidth is not set, the warning line is at col 256
 " set colorcolumn=+1
