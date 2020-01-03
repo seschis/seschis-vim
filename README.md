@@ -13,3 +13,11 @@ Extra information about managing vim-8 native plugins without a plugin manager:
 https://gist.github.com/manasthakur/d4dc9a610884c60d944a4dd97f0b3560
 
 More reading https://shapeshed.com/vim-packages/
+
+If transfering this to a new system,  here are the step you want to run.
+
+    cd seschis-vim
+    git submodule update --init--recursive
+    cd ..
+    ln -s seschis-vim .vim
+    ln -s seschis-vim/vimrc .vimrc
